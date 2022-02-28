@@ -11,7 +11,9 @@
 </template>
 
 <script>
-import utils from '../utils/axiostool'
+import utils from '../utils/axios'
+import fetch from '../utils/fetch'
+
 export default {
   name: 'LoginTable',
   data () {
@@ -29,7 +31,7 @@ export default {
            alert(response.data.msg);
         }
         console.log(this.loginData)
-        utils.axiosconfig({
+        utils({
            method: "POST",
            url: "/vue/success",
            data: this.loginData,
@@ -37,6 +39,11 @@ export default {
                console.log(response.data.msg);
           }
         })
+     },
+
+     doFetch() {
+         const responseBody = fetch('/vue/success', this.loginData, 'POST', 'axios')
+         responseBody.then(res => {console.log(res)});
      }
   }
 }
