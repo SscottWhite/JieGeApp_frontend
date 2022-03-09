@@ -7,6 +7,7 @@
         <input type="checkbox" value="y" name="isLogin">自动登陆<br/>
         <input type="button" value="提交" @click="upload" />
     </form>
+    {{ counts }} <button @click="increment">incre</button>
   </div>
 </template>
 
@@ -20,11 +21,10 @@ export default {
     return {
       loginData:{
          username : "",
-         password : ""
+         password : "",
       }
     }
-  },
-
+  },  
   methods: {
      upload() {
         let successinfo = (response) => {
@@ -44,7 +44,18 @@ export default {
      doFetch() {
          const responseBody = fetch('/vue/success', this.loginData, 'POST', 'axios')
          responseBody.then(res => {console.log(res)});
+     },
+     
+     increment(){
+      // console.log(this.$store)
+       this.$store.commit('increment')
      }
+  },
+  computed:{  //计算属性来计算数据变化
+    counts(){
+      //return  this.$store.getters.doit
+      return this.$store.state.count
+    }
   }
 }
 </script>
