@@ -12,8 +12,8 @@
 </template>
 
 <script>
-import utils from '../utils/axios'
-import fetch from '../utils/fetch'
+import utils from '../../utils/axios'
+import fetch from '../../utils/fetch'
 
 export default {
   name: 'LoginTable',
@@ -27,18 +27,20 @@ export default {
   },  
   methods: {
      upload() {
-        let successinfo = (response) => {
-           alert(response.data.msg);
-        }
-        console.log(this.loginData)
-        utils({
-           method: "POST",
-           url: "/vue/success",
-           data: this.loginData,
-           callback: (response) => {
-               console.log(response.data.msg);
-          }
-        })
+        // let successinfo = (response) => {
+        //    alert(response.data.msg);
+        // }
+        // console.log(this.loginData)
+        // utils({
+        //    method: "POST",
+        //    url: "/vue/success",
+        //    data: this.loginData,
+        //    callback: (response) => {
+        //        console.log(response.data.msg);
+        //   }
+        // })
+
+        this.$router.push('main')
      },
 
      doFetch() {
