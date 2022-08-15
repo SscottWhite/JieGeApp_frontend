@@ -17,7 +17,7 @@ export default {
       antd: true,
       dva: true,
       dynamicImport: false,
-      title: 'JieGeAppUMI',
+      title: 'JGReactApp',
       dll: false,
       
       routes: {
