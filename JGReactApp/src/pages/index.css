@@ -21,3 +21,14 @@
 .list code {
   background: #f7f7f7;
 }
+
+
+#components-form-demo-normal-login .loginForm {
+  max-width: 300px;
+}
+#components-form-demo-normal-login .loginFormForgot {
+  float: right;
+}
+#components-form-demo-normal-login .loginFormButton {
+  width: 100%;
+}
