@@ -29,10 +29,11 @@ class TestPages extends Component{
         window.localStorage.setItem('password',values.password)
         window.localStorage.setItem('remember',values.remember)
         //成功调整
-        router.push({pathname:'/MenuPages/MenuPage',query:{
-           id: 1,
-           school: '米花小学'
-        }})
+        // router.push({pathname:'/MenuPages/MenuPage',query:{
+        //    id: 1,
+        //    school: '米花小学'
+        // }})
+        router.push({pathname:'/DashPages'})
       }
     });
    };
