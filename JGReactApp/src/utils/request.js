@@ -27,7 +27,8 @@ function request(url, options) {
         'Content-Type': 'application/json;charset=UTF-8',
         'Access-Control-Allow-Origin': '*',
         // Accept: "application/json",
-        username: 'jack'
+        // username: 'jack',
+        'token': window.localStorage.getItem('token')
     }
     newOption.body = JSON.stringify(newOption.body)
 

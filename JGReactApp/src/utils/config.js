@@ -1,6 +1,6 @@
-//const common = 'http://localhost:8080';
+const common = 'http://localhost:8080';
 //const study = '';
-const common = 'http://47.102.155.32:8080/nc';
+// const common = 'http://47.102.155.32:8080/nc';
 
 module.exports = {
     name: "ncstudy",

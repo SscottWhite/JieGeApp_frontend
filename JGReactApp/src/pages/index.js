@@ -3,6 +3,7 @@ import {connect} from 'dva';
 import router from 'umi/router'
 import {Form, Icon, Input, Button, Checkbox} from 'antd';
 import styles from './index.css';
+import UserLogin from '../service/loginService'
 
 import HeaderContent from '../component/header/HeaderContent';
 
@@ -33,7 +34,10 @@ class TestPages extends Component{
         //    id: 1,
         //    school: '米花小学'
         // }})
-        router.push({pathname:'/DashPages'})
+        //console.log( UserLogin() );
+        // window.localStorage.setItem('token',xx)
+        //这边需要设置一个, 登陆成功后返回的token保存, 然后放在request里面取出, 保证每次请求都带token
+       // router.push({pathname:'/DashPages'})
       }
     });
    };
