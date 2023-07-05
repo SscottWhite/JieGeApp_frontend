@@ -30,7 +30,7 @@ function request(url, options) {
         // username: 'jack',
         'token': window.localStorage.getItem('token')
     }
-    newOption.body = JSON.stringify(newOption.body)
+    // newOption.body = JSON.stringify(newOption.body)
 
     /* 
     return fetch(url,newOption) //下面是promise
@@ -46,6 +46,8 @@ function request(url, options) {
             .then((d) => d )  //then就是一层层捕捉上面的返回值, d就是json.data
             .catch((err) => err)
     */
+
+   console.log(url,newOption)
    //利用promise来做一个err处理
    return Promise.race([
             //fetch用来返回包装过的data

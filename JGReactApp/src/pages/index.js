@@ -34,7 +34,7 @@ class TestPages extends Component{
         //    id: 1,
         //    school: '米花小学'
         // }})
-        //console.log( UserLogin() );
+        console.log( UserLogin({username:values.username,password:values.password,msg:""}) );
         // window.localStorage.setItem('token',xx)
         //这边需要设置一个, 登陆成功后返回的token保存, 然后放在request里面取出, 保证每次请求都带token
        // router.push({pathname:'/DashPages'})
@@ -58,7 +58,7 @@ class TestPages extends Component{
       const { getFieldDecorator } = this.props.form;
       return (       
         <div>
-          <HeaderContent />
+          {/* <HeaderContent /> */}
         
           <div className={styles.loginDiv}> 
             <Form onSubmit={this.handleSubmit} className={styles.login_form}>
