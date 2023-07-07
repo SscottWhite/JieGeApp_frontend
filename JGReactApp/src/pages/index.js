@@ -29,12 +29,13 @@ class TestPages extends Component{
         window.localStorage.setItem('username',values.username)
         window.localStorage.setItem('password',values.password)
         window.localStorage.setItem('remember',values.remember)
+        window.localStorage.setItem('expireTime',new Date().getTime())
         //成功调整
         // router.push({pathname:'/MenuPages/MenuPage',query:{
         //    id: 1,
         //    school: '米花小学'
         // }})
-        console.log( UserLogin({username:values.username,password:values.password,msg:""}) );
+        console.log( UserLogin({username:values.username}) );
         // window.localStorage.setItem('token',xx)
         //这边需要设置一个, 登陆成功后返回的token保存, 然后放在request里面取出, 保证每次请求都带token
        // router.push({pathname:'/DashPages'})
@@ -44,13 +45,24 @@ class TestPages extends Component{
 
    componentDidMount(){
       const { setFieldsValue } = this.props.form;
+      console.log((new Date().getTime() - window.localStorage.getItem('expireTime'))/1000)
+      if( window.localStorage.getItem('expireTime') != 0 &&
+        ((new Date().getTime()) - window.localStorage.getItem('expireTime'))/1000 <= 60) {
+        if(window.localStorage.getItem('username') )
+          setFieldsValue({"username": window.localStorage.getItem('username')})
 
-      if(window.localStorage.getItem('username') )
-        setFieldsValue({"username": window.localStorage.getItem('username')})
+        if(window.localStorage.getItem('remember') == 'true')
+          setFieldsValue({"password": window.localStorage.getItem('password')})
+      } else {
+        window.localStorage.setItem('username',"")
+        window.localStorage.setItem('password',"")
+        window.localStorage.setItem('remember',false)
+        window.localStorage.setItem('expireTime',0)
+        setFieldsValue({"username": ""})
+        setFieldsValue({"password": ""})
+        setFieldsValue({"remember": false})
 
-      if(window.localStorage.getItem('remember') == 'true')
-        setFieldsValue({"password": window.localStorage.getItem('password')})
-       
+      }
       setFieldsValue({"remember": window.localStorage.getItem('remember') == 'true' ? true : false})
     }
 

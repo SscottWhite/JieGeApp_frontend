@@ -13,8 +13,8 @@ function checkStatus(response) {
 
 function request(url, options) {
     const defaultOption = {
-        mode: 'cors'
-        //credentials: 'include',  
+        mode: 'cors',
+        // credentials: 'include',  
         //表示跨域请求是可以带cookie（fetch 跨域请求时默认不会带 cookie/ session，需要时得手动指定 credentials: 'include'。
     }
     //组合body
@@ -26,11 +26,10 @@ function request(url, options) {
         //'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
         'Content-Type': 'application/json;charset=UTF-8',
         'Access-Control-Allow-Origin': '*',
-        // Accept: "application/json",
         // username: 'jack',
         'token': window.localStorage.getItem('token')
     }
-    // newOption.body = JSON.stringify(newOption.body)
+    newOption.body = JSON.stringify(newOption.body)
 
     /* 
     return fetch(url,newOption) //下面是promise
@@ -46,8 +45,7 @@ function request(url, options) {
             .then((d) => d )  //then就是一层层捕捉上面的返回值, d就是json.data
             .catch((err) => err)
     */
-
-   console.log(url,newOption)
+   
    //利用promise来做一个err处理
    return Promise.race([
             //fetch用来返回包装过的data
