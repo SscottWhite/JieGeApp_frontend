@@ -15,7 +15,7 @@ class TestPages extends Component{
     e.preventDefault();
     this.props.form.validateFields((err, values) => {
       if (!err) {
-        console.log('Received values of form: ',values);
+        // console.log('Received values of form: ',values);
         //负责登陆验证
         this.props.dispatch({
            type: 'TestModel/changeInfo',
@@ -35,7 +35,7 @@ class TestPages extends Component{
         //    id: 1,
         //    school: '米花小学'
         // }})
-        console.log( UserLogin({username:values.username}) );
+        console.log(UserLogin({username:values.username,password:values.password,msg:""}).then(e => console.log(e)));
         // window.localStorage.setItem('token',xx)
         //这边需要设置一个, 登陆成功后返回的token保存, 然后放在request里面取出, 保证每次请求都带token
        // router.push({pathname:'/DashPages'})
@@ -45,9 +45,9 @@ class TestPages extends Component{
 
    componentDidMount(){
       const { setFieldsValue } = this.props.form;
-      console.log((new Date().getTime() - window.localStorage.getItem('expireTime'))/1000)
+      // console.log((new Date().getTime() - window.localStorage.getItem('expireTime'))/1000)
       if( window.localStorage.getItem('expireTime') != 0 &&
-        ((new Date().getTime()) - window.localStorage.getItem('expireTime'))/1000 <= 60) {
+        ((new Date().getTime()) - window.localStorage.getItem('expireTime'))/1000 <= 600) {
         if(window.localStorage.getItem('username') )
           setFieldsValue({"username": window.localStorage.getItem('username')})
 

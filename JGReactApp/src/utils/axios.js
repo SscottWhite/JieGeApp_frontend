@@ -6,7 +6,8 @@ const utils = (config) => {
       axios({
           method: config.method,
           url: configs.common + config.url,
-          data: config.data ? config.data : null,
+          data: config.data ? JSON.stringify(config.data) : null,  //post用
+          params: config.data ? config.data : null,      //get用
           headers: {
         //    'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
               'Content-Type': 'application/json;charset=UTF-8',
