@@ -1,15 +1,19 @@
 import config from '../utils/config'
-import request from '../utils/request'
+import { postrequest,getrequest } from '../utils/request'
 import axios from '../utils/axios'
 
 
-export default async function UserLogin(params){
+export async function UserLogin(params){
     //这个是自己封装的request请求方法
-    return request(`${config.common}/postbody`,{
-        method: 'POST',
+    // return postrequest(`${config.common}/postbody`,{
+    //     method: 'POST',
+    //     body: params,
+    // })
+
+    return getrequest(`${config.common}/getparam`,{
+        method: 'GET',
         body: params,
     })
-
 
     // return axios(
     //     {

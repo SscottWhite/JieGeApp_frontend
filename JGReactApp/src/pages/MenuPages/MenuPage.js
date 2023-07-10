@@ -20,7 +20,7 @@ class MenuPage extends Component {
 
     render(){
         const {pathname} = this.props.location
-        const {name,age} = this.props.TestModel
+        const {name,age,msg} = this.props.TestModel
         //console.log(name,age);
         return (
             <div>
@@ -79,7 +79,8 @@ class MenuPage extends Component {
                             <Breadcrumb.Item>Bill</Breadcrumb.Item>
                             </Breadcrumb>
                             <div style={{ padding: 24, background: '#fff', minHeight: 360 }}>
-                                {name} is {age}. <br/>
+                                {name} is {age}.
+                                 msg: {msg} <br/>
                              now is {pathname}
                             </div>
                         </Content>

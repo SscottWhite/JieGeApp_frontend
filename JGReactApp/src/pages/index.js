@@ -3,9 +3,9 @@ import {connect} from 'dva';
 import router from 'umi/router'
 import {Form, Icon, Input, Button, Checkbox} from 'antd';
 import styles from './index.css';
-import UserLogin from '../service/loginService'
+import { UserLogin } from '../service/loginService'
 
-import HeaderContent from '../component/header/HeaderContent';
+// import HeaderContent from '../component/header/HeaderContent';
 
 @connect(state => ({ TestModel: state.TestModel }))
 @Form.create()
@@ -30,12 +30,20 @@ class TestPages extends Component{
         window.localStorage.setItem('password',values.password)
         window.localStorage.setItem('remember',values.remember)
         window.localStorage.setItem('expireTime',new Date().getTime())
-        //成功调整
-        // router.push({pathname:'/MenuPages/MenuPage',query:{
-        //    id: 1,
-        //    school: '米花小学'
-        // }})
-        console.log(UserLogin({username:values.username,password:values.password,msg:""}).then(e => console.log(e)));
+ 
+        UserLogin({username:values.username,password:values.password,msg:""})
+             .then(json => {
+              console.log(json)
+              this.props.dispatch({
+                type: 'TestModel/changeInfo',
+                //这个payLoad是参数属性{payLoad}
+                payLoad: {
+                    msg: json.msg
+                }
+             })
+             //先把得到的结果保存起来, 跳转页面后直接拉取
+             router.push({pathname:'/MenuPages/MenuPage'})
+          });
         // window.localStorage.setItem('token',xx)
         //这边需要设置一个, 登陆成功后返回的token保存, 然后放在request里面取出, 保证每次请求都带token
        // router.push({pathname:'/DashPages'})
@@ -43,27 +51,28 @@ class TestPages extends Component{
     });
    };
 
-   componentDidMount(){
+   componentDidMount()
+   {
       const { setFieldsValue } = this.props.form;
-      // console.log((new Date().getTime() - window.localStorage.getItem('expireTime'))/1000)
-      if( window.localStorage.getItem('expireTime') != 0 &&
-        ((new Date().getTime()) - window.localStorage.getItem('expireTime'))/1000 <= 600) {
-        if(window.localStorage.getItem('username') )
-          setFieldsValue({"username": window.localStorage.getItem('username')})
+      // if( window.localStorage.getItem('expireTime') != 0 
+      //     && ((new Date().getTime()) - window.localStorage.getItem('expireTime'))/1000 <= 600) 
+      // {
+      //   setFieldsValue({"username": window.localStorage.getItem('username')})
+      //   setFieldsValue({"password": window.localStorage.getItem('password')})
+        
+      //   // router.push({pathname:'/MenuPages/MenuPage'})
 
-        if(window.localStorage.getItem('remember') == 'true')
-          setFieldsValue({"password": window.localStorage.getItem('password')})
-      } else {
-        window.localStorage.setItem('username',"")
-        window.localStorage.setItem('password',"")
-        window.localStorage.setItem('remember',false)
-        window.localStorage.setItem('expireTime',0)
-        setFieldsValue({"username": ""})
-        setFieldsValue({"password": ""})
-        setFieldsValue({"remember": false})
-
-      }
-      setFieldsValue({"remember": window.localStorage.getItem('remember') == 'true' ? true : false})
+      // } else {
+      //   window.localStorage.setItem('username',"")
+      //   window.localStorage.setItem('password',"")
+      //   window.localStorage.setItem('remember',false)
+      //   window.localStorage.setItem('expireTime',0)
+      //   setFieldsValue({"username": ""})
+      //   setFieldsValue({"password": ""})
+      //   setFieldsValue({"remember": false})
+      // }
+      // setFieldsValue({"remember": window.localStorage.getItem('remember') == 'true' ? true : false})
+      router.push({pathname:'/ExcelPage/ExcelPage'})
     }
 
    render(){ 

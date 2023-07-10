@@ -12,83 +12,93 @@ function checkStatus(response) {
     throw error
 }
 
-function request(url, options) {
+export async function postrequest(url, options) {
     const defaultOption = {
         mode: 'cors',
         // credentials: 'include',  
         //表示跨域请求是可以带cookie（fetch 跨域请求时默认不会带 cookie/ session，需要时得手动指定 credentials: 'include'。
     }
     //组合body
-    const newOption = {
-        ...options,
-        ...defaultOption
-    }
+    const newOption = {...options,...defaultOption}
     //1
     newOption.headers = {
-        //'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
         'Content-Type': 'application/json;charset=UTF-8',
         'Access-Control-Allow-Origin': '*',
-        // username: 'jack',
         'token': window.localStorage.getItem('token')
     }
     //2
     newOption.body = JSON.stringify(newOption.body)
 
-    var catchError=Promise.race([])
-   //利用promise来做一个err处理
-    if(options.method === "POST"){
-      catchError = Promise.race([
+    return Promise.race([
             //fetch用来返回包装过的data
              fetch(url,newOption) //下面是promise
                 .then(checkStatus)        //查看状态
-                .then(res => res.json())  //返回json
-                .then(res => {            
-                      //data就是resultDO里面的data
-                      return res.data
-             })          
-        ])
-    } else {
-        //get专用
-        const params = options.body
-        const queryStr = Object.keys(params)
-            .reduce((ary, key) => {
+                .then(res => {            //如果再接一个then处理数据,那返回毫无意义
+                  const jsonPromise = res.json()
+                  return jsonPromise.then(e => {
+                    return e.data
+                  })})          
+        ]).catch(error => {
+           if (error.toString() === "TypeError: Failed to fetch") {
+             notification.error({
+              message: "无法访问接口",
+              description: "请求接口不存在，请确定访问网址是否正确"
+            })
+           }
+           if (error.toString() === "Error: request timeout") {
+             notification.error({
+              message: "无法访问接口",
+              description: "请求接口超时"
+             })
+           }
+           return null
+        })        
+}
+
+export async function getrequest(url,options){
+    const defaultOption = {mode: 'cors',}
+    //组合body
+    const newOption = {...options,...defaultOption}
+    //1
+    newOption.headers = {
+        'Content-Type': 'application/json;charset=UTF-8',
+        'Access-Control-Allow-Origin': '*',
+        'token': window.localStorage.getItem('token')
+    }
+    const params = options.body
+    const queryStr = Object.keys(params)
+          .reduce((ary, key) => {
               ary.push(encodeURIComponent(key) + '=' + encodeURIComponent(params[key]));
               return ary;
             }, [])
             .join('&');
-        url += `?${queryStr}`
+    url += `?${queryStr}`
 
-        catchError = Promise.race([
+    return Promise.race([
             //fetch用来返回包装过的data
              fetch(url) //下面是promise
                 .then(checkStatus)        //查看状态
-                .then(res => res.json())  //返回json
-                .then(res => {            
-                      //data就是resultDO里面的data
-                      return res.data
-             })          
-        ])
-    } 
-
-    catchError
-      .catch(error => {
-        if (error.toString() === "TypeError: Failed to fetch") {
-          notification.error({
-            message: "无法访问接口",
-            description: "请求接口不存在，请确定访问网址是否正确"
-          })
-        }
-        if (error.toString() === "Error: request timeout") {
-          notification.error({
-            message: "无法访问接口",
-            description: "请求接口超时"
-          })
-        }
-        return null
-      })    
+                .then(res => {            //如果再接一个then处理数据,那返回毫无意义
+                  const jsonPromise = res.json()
+                  return jsonPromise.then(e => {
+                    return e.data
+                  })})         
+        ]).catch(error => {
+          if (error.toString() === "TypeError: Failed to fetch") {
+            notification.error({
+             message: "无法访问接口",
+             description: "请求接口不存在，请确定访问网址是否正确"
+           })
+          }
+          if (error.toString() === "Error: request timeout") {
+            notification.error({
+             message: "无法访问接口",
+             description: "请求接口超时"
+            })
+          }
+          return null
+       }) 
 }
-export default request;
-
 
 
  /* 
