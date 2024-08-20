@@ -10,20 +10,20 @@
   </template>
   
   <script setup lang="ts">
-  import { useLightCard } from './use-light-card';
+  // import { useLightCard } from './use-light-card';
   
-  const { cardRef: cardRef1 } = useLightCard();
-  const { cardRef: cardRef2 } = useLightCard({
-    light: {
-      color: '#ffffff',
-      width: 100,
-    },
-  });
-  const { cardRef: cardRef3 } = useLightCard({
-    light: {
-      color: 'yellow',
-    },
-  });
+  // const { cardRef: cardRef1 } = useLightCard();
+  // const { cardRef: cardRef2 } = useLightCard({
+  //   light: {
+  //     color: '#ffffff',
+  //     width: 100,
+  //   },
+  // });
+  // const { cardRef: cardRef3 } = useLightCard({
+  //   light: {
+  //     color: 'yellow',
+  //   },
+  // });
   </script>
   
   <style scoped>
