@@ -5,7 +5,7 @@ import main from '../components/main/main.vue'
 const routes = [
   { path: '/login', name: 'login', component: () => import('../components/login/LoginTable.vue') },
   { path: '/main', name: 'main' , component: main},
- { path: '/uis', name: 'uis', component: () => import('../components/main/main3.vue')}
+ { path: '/uis', name: 'uis', component: () => import('../components/main/main3.vue')}  //蜂窝特效
 ]
 
 const router = createRouter({
